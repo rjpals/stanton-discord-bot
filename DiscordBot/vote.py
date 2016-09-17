@@ -27,9 +27,10 @@ async def vote(client, message):
         votes.clear()
         await client.send_message(message.channel, text)
             
-    elif message.content.startswith('~v'):
+    elif not (message.author.id in voters) and message.content.startswith('~v'):
         try:
             votes[int(message.content[2:])-1] += 1
+            voters.append(message.author.id)
         except ValueError:
             print("VALUE ERROR")
 
