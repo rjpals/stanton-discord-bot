@@ -2,6 +2,7 @@ import discord
 import asyncio
 from trash import trash
 from help import help
+from voiceClient import summon, playTest
 
 Token = input("Enter your token: ")
 client = discord.Client()
@@ -31,18 +32,41 @@ async def on_message(message):
     elif message.content.startswith('~help'):
         await help(client, message)
 
+    elif message.content.startswith('~permission'):
+        if client.user.permissions_in(message.channel).read_messages:
+            await client.send_message(message.channel, "I have permission")
+        else:
+            await client.send_message(message.channel, "I do not have permission")
+
+    elif message.content.startswith('~summon'):
+        await summon(client, message)
+
+    elif message.content.startswith('~play'):
+        await playTest(client, message)
+
     else:
         await trash(client, message)
 
 
 @client.event
 async def on_member_join(member):
-    await client.send_message(member.server, member.mention + ' has joined the channel.')
+    await client.send_message(member.server, member.mention + ' has joined the server.')
 
 
 @client.event
 async def on_member_remove(member):
     await client.send_message(member.server, member.mention + ' has been forcefully removed from the channel.')
+
+@client.event
+async def on_voice_state_update(before, after):
+    print("in update")
+    if client.is_voice_connected(after.server):
+        print("next step")
+        vClient = client.voice_client_in(before.server)
+        if len(vClient.channel.voice_members) == 1:
+            print("final step")
+            await client.voice_client_in(before.server).disconnect()
+
 
 
 client.run(Token)
