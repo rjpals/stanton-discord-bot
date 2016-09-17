@@ -4,6 +4,7 @@ import asyncio
 
 votes=[]
 voteStrings=[]
+voters = []
 
 async def vote(client, message):
     global voteStrings
@@ -30,6 +31,6 @@ async def vote(client, message):
         try:
             votes[int(message.content[2:])-1] += 1
         except ValueError:
-
+            print("VALUE ERROR")
 
 
