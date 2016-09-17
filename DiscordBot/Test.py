@@ -1,6 +1,7 @@
 import discord
 import asyncio
 
+
 client = discord.Client()
 
 @client.event
@@ -12,7 +13,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith('!test'):
+    if message.content.startswith('~test'):
         counter = 0
         tmp = await client.send_message(message.channel, 'Calculating messages...')
         async for log in client.logs_from(message.channel, limit=1000):
@@ -20,8 +21,12 @@ async def on_message(message):
                 counter += 1
 
         await client.edit_message(tmp, message.author.name + ', you have {} messages.'.format(counter))
-    elif message.content.startswith('!sleep'):
-        await asyncio.sleep(5)
-        await client.send_message(message.channel, 'Done sleeping')
+
+    elif message.content.startswith('~meme'):
+        await client.send_message(message.channel, 'Calculating messages...')
+
+    elif message.content.startswith('~praise'):
+        await client.send_message(message.channel, 'https://media.giphy.com/media/fr42tarocsK6Q/giphy.gif')
+
 
 client.run('MTY4NDYyODY0MzcyMzM0NTky.Cr4nmQ.EMPQJiUqo-3rW_OUq6qfMPTaacA')
