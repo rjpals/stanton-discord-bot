@@ -2,6 +2,7 @@ import discord
 import asyncio
 import urllib
 import json
+import urllib.request
 
 
 async def trash(client, message):
