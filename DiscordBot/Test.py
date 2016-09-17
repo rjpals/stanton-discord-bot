@@ -3,6 +3,7 @@ import asyncio
 from trash import trash
 from help import help
 
+Token = input("Enter your token: ")
 client = discord.Client()
 
 @client.event
@@ -44,4 +45,4 @@ async def on_member_remove(member):
     await client.send_message(member.server, member.mention + ' has been forcefully removed from the channel.')
 
 
-client.run('MTY4NDYyODY0MzcyMzM0NTky.Cr4nmQ.EMPQJiUqo-3rW_OUq6qfMPTaacA')
+client.run(Token)
