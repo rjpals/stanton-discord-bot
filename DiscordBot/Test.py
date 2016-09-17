@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from trash import trash
+from help import help
 
 client = discord.Client()
 
@@ -10,6 +11,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
+
 
 @client.event
 async def on_message(message):
@@ -27,6 +29,19 @@ async def on_message(message):
 
     elif message.content.startswith('~praise'):
         await client.send_message(message.channel, 'https://media.giphy.com/media/fr42tarocsK6Q/giphy.gif')
+
+    elif message.content.startswith('~help'):
+        await help(client, message)
+
+
+@client.event
+async def on_member_join(member):
+    await client.send_message(member.server, member.mention + ' has joined the channel.')
+
+
+@client.event
+async def on_member_remove(member):
+    await client.send_message(member.server, member.mention + ' has been forcefully removed from the channel.')
 
 
 client.run('MTY4NDYyODY0MzcyMzM0NTky.Cr4nmQ.EMPQJiUqo-3rW_OUq6qfMPTaacA')
