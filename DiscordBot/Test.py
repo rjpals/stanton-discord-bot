@@ -24,14 +24,14 @@ async def on_message(message):
 
         await client.edit_message(tmp, message.author.name + ', you have {} messages.'.format(counter))
 
-    elif message.content.startswith('~ayy'):
-        await trash(client, message)
-
     elif message.content.startswith('~praise'):
         await client.send_message(message.channel, 'https://media.giphy.com/media/fr42tarocsK6Q/giphy.gif')
 
     elif message.content.startswith('~help'):
         await help(client, message)
+
+    else:
+        await trash(client, message)
 
 
 @client.event
