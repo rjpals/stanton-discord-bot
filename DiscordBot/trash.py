@@ -3,7 +3,7 @@ import asyncio
 import urllib
 import json
 import urllib.request
-
+from vote import vote
 
 async def trash(client, message):
     if message.content.startswith('~ayy'):
@@ -52,5 +52,6 @@ async def trash(client, message):
         data = json.loads(json.dumps(data['data']))
         await client.send_message(message.channel, data['url'])
 
+    await vote(client, message)
 
     

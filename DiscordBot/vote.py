@@ -1,21 +1,35 @@
 import discord
 import asyncio
-import urllib
-import json
-import urllib.request
 
-inVote = False
-voteStrings=[]
+
 votes=[]
-async def trash(client, message):
-    
-    if message.content.startswith('~v'):
-        if message.content.startswith('~vote'):
-            inVote = True
-            voteStrings = message.content[5:].split(';')
-            print(voteStrings)
+voteStrings=[]
 
-        tmp = await client.send_message(message.channel, "")
-        
-    elif message.content.startswith('~kappa'):
-        await client.send_message(message.channer, "")
+async def vote(client, message):
+    global voteStrings
+    text = ""
+    if message.content.startswith('~vote'):
+        text += "Voting has begun make you vote now.\n"
+        inVote = True
+        voteStrings = message.content[5:].split(';')
+        for i, v in enumerate(voteStrings):
+            votes.append(0)
+            text+=("~v" + str(i+1) + ": " + v + "\n")
+            i+=1
+        await client.send_message(message.channel, text)
+
+    elif message.content.startswith('~endvote'):
+        text += "End Vote\n"
+        for i, v in enumerate(voteStrings):
+            text += str(votes[i]) + ": " + v + "\n"
+        voteStrings.clear()
+        votes.clear()
+        await client.send_message(message.channel, text)
+            
+    elif message.content.startswith('~v'):
+        try:
+            votes[int(message.content[2:])-1] += 1
+        except ValueError:
+
+
+
