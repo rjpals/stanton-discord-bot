@@ -2,7 +2,6 @@ import discord
 import asyncio
 
 async def userinfo(client, message):
-    global voteStrings
     text = ""
     if message.content.startswith('~whois'):
         if len(message.mentions) == 0:
