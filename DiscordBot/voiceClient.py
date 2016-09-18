@@ -34,7 +34,23 @@ async def playTest(client, message):
         await client.send_message(message.channel, 'I am not in a voice channel please "~summon" me')
 
     elif client.voice_client_in(message.server).channel == message.author.voice_channel:
-        if not playerMap[client.voice_client_in(message.server)]:
+        try:
+            if playerMap[client.voice_client_in(message.server)].is_playing():
+                print('here in playing')
+                await client.send_message(message.channel, "There is currently a song playing please try again later.")
+
+            else:
+                vClient = client.voice_client_in(message.server)
+                player = playerMap[vClient]
+                vidUrl = message.content
+                vidUrl = re.search("(?P<url>https?://[^\s]+)", vidUrl).group("url")
+                player = await vClient.create_ytdl_player(vidUrl)
+                """Adding player to hashmap"""
+                playerMap[vClient] = player
+                player.start()
+
+        except KeyError:
+            print('ayo key error!!!')
             await voiceInit()
             vClient = client.voice_client_in(message.server)
             vidUrl = message.content
@@ -44,21 +60,7 @@ async def playTest(client, message):
             playerMap[vClient] = player
             player.start()
 
-        elif playerMap[client.voice_client_in(message.server)].is_playing():
-            client.send_message(message.channel, "There is currently a song playing please try again when it is finished.")
-
-        else:
-            vClient = client.voice_client_in(message.server)
-            player = playerMap[vClient]
-            vidUrl = message.content
-            vidUrl = re.search("(?P<url>https?://[^\s]+)", vidUrl).group("url")
-            player = await vClient.create_ytdl_player(vidUrl)
-            """Adding player to hashmap"""
-            playerMap[vClient] = player
-            player.start()
-
     else:
         await client.send_message(message.channel, 'You are not in my voice channel. Please join or "~summon" me')
-
 
     return True
