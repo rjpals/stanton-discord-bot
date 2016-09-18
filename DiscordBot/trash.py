@@ -5,6 +5,7 @@ import json
 import urllib.request
 from vote import vote
 from userinfo import userinfo
+from ryan import ryan
 
 async def trash(client, message):
     if message.content.startswith('~ayy'):
@@ -55,4 +56,4 @@ async def trash(client, message):
 
     await vote(client, message)
     await userinfo(client, message)
-    
+    await ryan(client, message)
