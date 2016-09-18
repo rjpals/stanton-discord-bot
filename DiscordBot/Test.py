@@ -59,12 +59,9 @@ async def on_member_remove(member):
 
 @client.event
 async def on_voice_state_update(before, after):
-    print("in update")
     if client.is_voice_connected(after.server):
-        print("next step")
         vClient = client.voice_client_in(before.server)
         if len(vClient.channel.voice_members) == 1:
-            print("final step")
             await client.voice_client_in(before.server).disconnect()
 
 
