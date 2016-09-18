@@ -23,10 +23,10 @@ ASCIIKITTEN = """                      __     __,
    
 
 async def ryan(client, message):
-    if message.content.startswith('!memeasdfasdf'):
+    if message.content.startswith('~memeasdfasdf'):
         await client.send_message(message.channel, "http://i.imgur.com/2UsbZdM.jpg")
         
-    elif message.content.startswith('!kitten'):
+    elif message.content.startswith('~kitten'):
         if message.content.startswith('!kittenrussianroulette'):
             barrel = randrange(1, 6)
             print(barrel)
@@ -40,21 +40,14 @@ async def ryan(client, message):
         else:
             await client.send_message(message.channel, random_kitten())
             
-    elif message.content.startswith('!eyebleach'):
+    elif message.content.startswith('~eyebleach'):
         for i in range(1,5):
             await client.send_message(message.channel, random_kitten())
-            
-    elif message.content.startswith('!clear'):
-        msg = ''
-        for i in range(1, 25):
-            msg += ".\n"
-            for i in range(1, 3):
-                await client.send_message(message.channel, msg)
                 
-    elif message.content.startswith('!shit'):
+    elif message.content.startswith('~shit'):
         await client.send_message(message.channel, random_hot_post('shitpost'))
         
-    elif message.content.startswith('!meme'):
+    elif message.content.startswith('~meme'):
         things = message.content.split(":")
         if len(things) < 2:
             await client.send_message(message.channel, random_hot_post('adviceanimals'))

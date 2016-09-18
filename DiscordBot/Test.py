@@ -1,7 +1,7 @@
 import discord
 import asyncio
 from trash import trash
-from help import help
+from help import help, prune
 from voiceClient import summon, playTest
 
 Token = input("Enter your token: ")
@@ -40,6 +40,9 @@ async def on_message(message):
 
     elif message.content.startswith('~summon'):
         await summon(client, message)
+
+    elif message.content.startswith('~prune'):
+        await prune(client, message)
 
     elif message.content.startswith('~play'):
         await playTest(client, message)
