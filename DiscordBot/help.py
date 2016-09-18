@@ -2,12 +2,6 @@ import discord
 import asyncio
 import re
 
-user_toDelete = ''
-
-async def help(client, message):
-    user = message.author
-    await client.send_message(user, 'fuk u read a book')
-
 async def prune(client, message):
     input = message.content
     if len(message.mentions) == 0:
@@ -26,4 +20,14 @@ async def prune(client, message):
 
             await client.send_message(message.channel, "Pruned " + str(userDelCount) + " messages from" + user.mention +".")
 
+
+
+async def help(client, message):
+    user = message.author
+    text = "`MEME COMMANDS\n"
+    text += "~meme\n~meme:textline1:textline2\n~kitten\n~eyebleach\n~shit\n~harambe\n~kappa\n~ayy\n~giphy search\n"
+    text += "\nMODERATION COMMANDS\n~prune num\n~prune num @usernames~kick @username\n~ban @username\n~botname newusername\n~botavatar pngfilepath\n"
+    text += "\nVOICE COMMANDS\n~summon\n~play youtubeurl\n`"
+    text += ""
+    await client.send_message(user, text)
 
